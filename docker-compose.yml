@@ -1,0 +1,39 @@
+version: '3.4'
+services:
+
+  ttrss:
+    container_name: ttrss
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: "frinux/ttrss:latest"
+    restart: unless-stopped
+    ports:
+      - "7000:80"
+    environment:
+      - SELF_URL_PATH=http://127.0.0.1:7000
+      - DB_TYPE=pgsql
+      - DB_HOST=postgres
+      - DB_USER=ttrss
+      - DB_NAME=ttrss
+      - DB_PASS=abcd
+      - DB_PORT=5432
+    networks:
+      - local
+    depends_on:
+      - postgres
+
+  postgres:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_USER=ttrss
+      - POSTGRES_PASSWORD=abcd
+      - POSTGRES_DB=ttrss
+    ports:
+      - "5432:5432"
+    networks:
+      - local
+
+networks:
+  local:
+    driver: bridge
