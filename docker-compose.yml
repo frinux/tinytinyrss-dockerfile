@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    # command: /updater.sh
     image: "frinux/ttrss:latest"
     restart: unless-stopped
     ports:
@@ -18,10 +19,22 @@ services:
       - DB_NAME=ttrss
       - DB_PASS=abcd
       - DB_PORT=5432
+      - PHP_EXECUTABLE=/usr/local/bin/php
     networks:
       - local
     depends_on:
       - postgres
+
+  postgres:
+    image: "postgres:10"
+    environment:
+      - POSTGRES_USER=ttrss
+      - POSTGRES_PASSWORD=abcd
+      - POSTGRES_DB=ttrss
+    ports:
+      - "5432:5432"
+    networks:
+      - local
 
   postgres:
     image: "postgres:10"

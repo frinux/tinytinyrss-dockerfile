@@ -26,12 +26,12 @@
 	// issues on your install and cause hard to debug problems.
 	// If your tt-rss instance is behind a reverse proxy, use the external URL.
 
-	define('SINGLE_USER_MODE', false);
+	define('SINGLE_USER_MODE', getenv('SINGLE_USER_MODE'));
 	// Operate in single user mode, disables all functionality related to
 	// multiple users and authentication. Enabling this assumes you have
 	// your tt-rss directory protected by other means (e.g. http auth).
 
-	define('SIMPLE_UPDATE_MODE', false);
+	define('SIMPLE_UPDATE_MODE', getenv('SIMPLE_UPDATE_MODE'));
 	// Enables fallback update mode where tt-rss tries to update feeds in
 	// background while tt-rss is open in your browser.
 	// If you don't have a lot of feeds and don't want to or can't run
@@ -44,7 +44,7 @@
 	// *** Files and directories ***
 	// *****************************
 
-	define('PHP_EXECUTABLE', '/usr/bin/php');
+	define('PHP_EXECUTABLE', getenv('PHP_EXECUTABLE'));
 	// Path to PHP *COMMAND LINE* executable, used for various command-line tt-rss
 	// programs and update daemon. Do not try to use CGI binary here, it won't work.
 	// If you see HTTP headers being displayed while running tt-rss scripts,

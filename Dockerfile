@@ -58,7 +58,18 @@ ENV DB_USER fox
 ENV DB_NAME fox
 ENV DB_PASS XXXXXX
 ENV DB_PORT 5432
+ENV PHP_EXECUTABLE /usr/bin/php
+ENV SINGLE_USER_MODE false
+ENV SIMPLE_UPDATE_MODE true
 COPY --chown=www-data:www-data ./config.php /var/www/html/config.php
+
+# Customized sanity check
+COPY sanity_check.php /var/www/html/include/sanity_check.php
+
+# Updater
+ADD updater.sh /
+RUN chown www-data:www-data /updater.sh
+RUN chmod u+x /updater.sh
 
 # Entrypoint
 COPY start.sh /usr/local/bin/start
