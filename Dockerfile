@@ -71,6 +71,11 @@ ADD updater.sh /
 RUN chown www-data:www-data /updater.sh
 RUN chmod u+x /updater.sh
 
+# Install other plugins: af_drop_categories
+RUN mkdir /var/www/html/plugins/af_drop_categories
+COPY plugins/af_drop_categories/init.php /var/www/html/plugins/af_drop_categories/init.php
+RUN chown www-data:www-data /var/www/html/plugins/af_drop_categories/init.php
+
 # Entrypoint
 COPY start.sh /usr/local/bin/start
 RUN chmod u+x /usr/local/bin/start
